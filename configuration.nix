@@ -54,10 +54,10 @@
   # Enable sound.
   # hardware.pulseaudio.enable = true;
   # OR
-  # services.pipewire = {
-  #   enable = true;
-  #   pulse.enable = true;
-  # };
+  services.pipewire = {
+    enable = true;
+    pulse.enable = true;
+  };
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
@@ -92,7 +92,38 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
+  
 
+  # KDE
+  services.xserver.enable = true;
+  services.displayManager = {
+    sddm.enable = true;
+    sddm.wayland.enable = true;
+    defaultSession = "plasma";
+  };
+  services.desktopManager.plasma6.enable = true;
+  qt = {
+    enable = true;
+    platformTheme = "gnome";
+    style = "adwaita-dark";
+  };
+
+  
+  # NVIDIA
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
+
+  hardware.graphics.enable = true;
+  services.xserver.videoDrivers = ["nvidia"];
+  
+  hardware.nvidia = {
+    modesetting.enable = true; # required
+    powerManagement.enable = false;
+    powerManagement.finegrained = false;
+    open = false;
+    nvidiaSettings = true;
+
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+  };  
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
