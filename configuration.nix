@@ -9,7 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
-
+  nixpkgs.config.allowUnfree = true;
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
   boot.loader.grub.efiSupport = true;
@@ -71,7 +71,7 @@
     ];
   };
 
-  # programs.firefox.enable = true;
+  programs.firefox.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -79,6 +79,10 @@
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     git
+    wayland-utils
+    kdePackages.wayland
+    wlroots
+    xdg-desktop-portal-wlr
   ];
 
   programs.git.config.user = {
@@ -97,9 +101,15 @@
   # KDE
   services.xserver.enable = true;
   services.displayManager = {
-    sddm.enable = true;
-    sddm.wayland.enable = true;
+   # sddm = {
+    #  enable = true;
+      # wayland.enable = true;
+    #};
     defaultSession = "plasma";
+  };
+  services.xserver.displayManager.gdm = {
+    enable = true;
+    wayland = true;
   };
   services.desktopManager.plasma6.enable = true;
   qt = {
@@ -110,7 +120,6 @@
 
   
   # NVIDIA
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
 
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = ["nvidia"];
