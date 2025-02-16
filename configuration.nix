@@ -6,11 +6,13 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+    [
+      ./hardware_configuration.nix # do not delete
       ./vscodium.nix
+      ./home_manager.nix
     ];
   nixpkgs.config.allowUnfree = true;
+
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
   boot.loader.grub.efiSupport = true;
@@ -18,6 +20,9 @@
   # boot.loader.efi.efiSysMountPoint = "/boot/efi";
   # Define on which hard drive you want to install Grub.
   boot.loader.grub.device = "nodev"; # or "nodev" for efi only
+
+  # Configure home-manager to manage
+  home-manager.users.alemak = import ./home.nix;
 
   # networking.hostName = "nixos"; # Define your hostname.
   # Pick only one of the below networking options.
