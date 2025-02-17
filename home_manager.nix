@@ -12,4 +12,7 @@ in
     home.stateVersion = "18.09";
     /* Here goes the rest of your home-manager config, e.g. home.packages = [ pkgs.foo ]; */
   };
+
+  # Back files before overriding them
+  home-manager.backupFileExtension = "backup";
 }
